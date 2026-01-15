@@ -1,42 +1,275 @@
-#root {
-  max-width: 1280px;
+:root {
+  /* TSN COLOR PALETTE */
+  --primary: #d6001c;       /* TSN Red */
+  --header-bg: #000000;     /* Pure Black for Header */
+  --page-bg: #f3f4f6;       /* Light Gray Page Background */
+  --card-bg: #ffffff;       /* White Cards */
+  --text: #111827;          /* Dark Gray/Black Text */
+  --text-light: #6b7280;    /* Muted text for dates/fields */
+  --border: #e5e7eb;        /* Light borders */
+  --highlight: #d6001c;     /* Red for scores */
+}
+
+html {
+  font-size: 16px; /* Base scale kept the same */
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* --- NAVBAR --- */
+/* 1. FORCE NAVBAR TO STRETCH */
+.navbar {
+  background: var(--header-bg);
+  /* Change 'width: 100%' to this: */
+  width: 100vw;               /* Forces it to cover the full viewport */
+  min-width: 100%;            /* Backup to ensure it covers scrolling areas */
+  border-bottom: 0.3rem solid var(--primary);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin: 0;                  /* Ensure no accidental margins */
+}
+
+.nav-container {
+  max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-logo { 
+  display: flex; 
+  align-items: center; 
+  text-decoration: none; 
+}
+
+.nav-logo img {
+  height: 3.5rem;  
+  width: auto;     
+}
+
+.nav-links { 
+  display: flex; 
+  gap: 1.5rem; 
+  flex-wrap: wrap;       
+  justify-content: center;
+}
+
+.nav-links a { 
+  font-size: 1.1rem; 
+  font-weight: 700; 
+  text-transform: uppercase; /* Added for TSN style */
+  padding: 0.5rem 1rem; 
+  border-radius: 0.4rem; 
+  transition: all 0.2s; 
+  color: #ffffff; /* White text on Black header */
+}
+
+.nav-links a:hover { 
+  background: var(--primary); /* Red hover */
+  color: white; 
+  transform: translateY(-0.15rem); 
+}
+
+/* --- MAIN LAYOUT --- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 2. PREVENT HORIZONTAL SCROLLING */
+.content {
+  /* Change 'width: 95vw' to 'width: 95%' */
+  /* % is safer than vw because it subtracts the scrollbar automatically */
+  width: 95%;           
+  max-width: 1600px;
+  margin: 2rem auto;   
+  flex-grow: 1;
+}
+
+/* CARDS */
+.card { 
+  background: var(--card-bg); /* White */
+  padding: 2rem; 
+  border-radius: 0.5rem; 
+  margin-bottom: 2rem; 
+  border: 1px solid var(--border); /* Added light border */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* GAMES GRID - Same Reactive Logic */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); 
+  gap: 1.5rem;
+}
+
+.game-card {
+  background: var(--card-bg); /* White */
+  padding: 1.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border);
+  border-left: 0.4rem solid var(--primary); /* Thick Red Left Border */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.date { 
+  color: var(--text-light); /* Muted Gray */
+  font-size: 0.9rem; 
+  font-weight: 700;
+  margin-bottom: 0.5rem; 
+  text-transform: uppercase; 
+  letter-spacing: 0.05rem;
+}
+
+.matchup { 
+  font-size: 1.5rem; 
+  font-weight: 800; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 1rem;
+  color: var(--text); /* Dark Text */
+}
+
+.scores { 
+  font-size: 2rem; 
+  text-align: center; 
+  font-weight: 900; 
+  color: var(--highlight); /* Red Text */
+  background: transparent; /* Removed dark box */
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.field { 
+  font-size: 0.8rem; 
+  color: var(--text-light); 
+  display: flex; 
+  align-items: center; 
+  gap: 0.4rem; 
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* TEAM DETAIL SPLIT VIEW */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 2rem;
+}
+
+/* TEAM & ROSTER STYLES */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1.5rem;
+}
+
+.team-card {
+  background: var(--card-bg); 
+  padding: 2.5rem; 
+  border-radius: 0.4rem; 
   text-align: center;
+  
+  /* NEW: Stronger border for contrast */
+  border: 1px solid #d1d5db; 
+  
+  /* NEW: Heavier shadow to make it "lift" off the page */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  transition: all 0.2s ease-in-out; 
+  cursor: pointer;
+  position: relative; /* For the accent bar */
+  overflow: hidden;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* NEW: Add a colored accent bar at the top of each roster card */
+.team-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px; /* Thick color bar */
+  background: var(--header-bg); /* Default to black, or change to var(--primary) for red */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.team-card:hover { 
+  transform: translateY(-0.3rem); 
+  border-color: var(--primary); /* Border turns red on hover */
+  /* Stronger shadow on hover */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.team-card h3 {
+  color: #000000; /* Pure black text for maximum contrast */
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05rem;
+}
+
+.team-card p {
+  color: #4b5563; /* Dark gray for record */
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.btn-details {
+  display: inline-block; 
+  margin-top: 15px; 
+  color: var(--primary); 
+  font-weight: 700; 
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+.player-list li {
+  padding: 1rem; 
+  border-bottom: 1px solid var(--border); 
+  display: flex; 
+  justify-content: space-between;
+  color: var(--text);
+}
+.p-number { color: var(--primary); font-weight: bold; font-size: 1.25rem; width: 3rem; }
+.p-name { font-size: 1.15rem; font-weight: 600; }
+
+/* TABLE STYLES (Standings) */
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 1rem; background: var(--header-bg); color: white; }
+td { padding: 1rem; border-bottom: 1px solid var(--border); color: var(--text); font-weight: 500;}
+
+/* --- RESPONSIVE DESKTOP ADJUSTMENTS --- */
+@media (min-width: 1024px) {
+  .nav-container {
+    flex-direction: row;        
+    justify-content: space-between; 
   }
-  to {
-    transform: rotate(360deg);
+  
+  .nav-links {
+    gap: 2rem;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .split-view {
+    grid-template-columns: 22rem 1fr; 
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
