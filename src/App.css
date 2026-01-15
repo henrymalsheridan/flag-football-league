@@ -20,6 +20,8 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
   margin: 0;
   padding: 0;
+  width: 100%;      /* Forces body to fit the window */
+  max-width: 100vw;
   overflow-x: hidden;
 }
 
@@ -35,6 +37,8 @@ a { text-decoration: none; color: inherit; }
   border-bottom: 0.3rem solid var(--primary);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   padding: 0;
+  display: flex;    /* Ensures child content stretches */
+  justify-content: center; /* Centers the inner container */
   margin: 0;                  /* Ensure no accidental margins */
 }
 
@@ -169,14 +173,55 @@ a { text-decoration: none; color: inherit; }
   font-weight: 600;
 }
 
-/* TEAM DETAIL SPLIT VIEW */
+/* --- TEAM DETAIL VIEW (The Specific Team Page) --- */
+
+/* 1. The "Hero" Banner - Looks like a scoreboard now */
+.team-header {
+  background: var(--header-bg); /* Black Background */
+  padding: 2rem 2.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 5px solid var(--primary); /* Red Accent Line */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.team-header h1 {
+  color: #ffffff; 
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5); 
+}
+
+/* 2. The Record Badge */
+.record-badge {
+  background: var(--card-bg); 
+  color: var(--header-bg);    
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.3rem;
+  font-weight: 800;
+  font-size: 1.5rem;
+  border: 2px solid var(--primary); 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 3. Layout Grid for Team Page */
 .split-view {
   display: grid;
   grid-template-columns: 1fr; 
   gap: 2rem;
 }
 
-/* TEAM & ROSTER STYLES */
+/* --- ROSTER LIST VIEW (The Grid of All Teams) --- */
+/* (Keeping your existing styles here so the Roster page stays nice) */
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
@@ -188,39 +233,32 @@ a { text-decoration: none; color: inherit; }
   padding: 2.5rem; 
   border-radius: 0.4rem; 
   text-align: center;
-  
-  /* NEW: Stronger border for contrast */
   border: 1px solid #d1d5db; 
-  
-  /* NEW: Heavier shadow to make it "lift" off the page */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  
   transition: all 0.2s ease-in-out; 
   cursor: pointer;
-  position: relative; /* For the accent bar */
+  position: relative; 
   overflow: hidden;
 }
 
-/* NEW: Add a colored accent bar at the top of each roster card */
 .team-card::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 6px; /* Thick color bar */
-  background: var(--header-bg); /* Default to black, or change to var(--primary) for red */
+  height: 6px; 
+  background: var(--header-bg); 
 }
 
 .team-card:hover { 
   transform: translateY(-0.3rem); 
-  border-color: var(--primary); /* Border turns red on hover */
-  /* Stronger shadow on hover */
+  border-color: var(--primary); 
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .team-card h3 {
-  color: #000000; /* Pure black text for maximum contrast */
+  color: #000000; 
   font-size: 1.5rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -229,7 +267,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .team-card p {
-  color: #4b5563; /* Dark gray for record */
+  color: #4b5563; 
   font-weight: 600;
   font-size: 1.1rem;
 }
@@ -243,20 +281,123 @@ a { text-decoration: none; color: inherit; }
   text-transform: uppercase;
   letter-spacing: 0.05rem;
 }
+
+/* --- PLAYER LIST STYLES (New Zebra Striping) --- */
+.player-list { 
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+}
+
 .player-list li {
-  padding: 1rem; 
+  padding: 1rem 1.2rem; 
   border-bottom: 1px solid var(--border); 
   display: flex; 
   justify-content: space-between;
+  align-items: center;
   color: var(--text);
+  font-weight: 600;
+  transition: background 0.1s;
 }
-.p-number { color: var(--primary); font-weight: bold; font-size: 1.25rem; width: 3rem; }
-.p-name { font-size: 1.15rem; font-weight: 600; }
 
+.player-list li:nth-child(even) {
+  background-color: #f9fafb; /* Zebra Stripe */
+}
+
+.player-list li:hover {
+  background-color: #f3f4f6;
+  border-left: 4px solid var(--primary);
+  padding-left: calc(1.2rem - 4px);
+}
+
+.p-number { 
+  color: var(--primary); 
+  font-weight: 900; 
+  font-size: 1.4rem; 
+  width: 3.5rem; 
+  font-family: 'Inter', monospace;
+}
+
+.p-name { 
+  flex-grow: 1; 
+  font-size: 1.1rem; 
+}
+
+.p-pos { 
+  color: var(--text-light); 
+  font-size: 0.85rem; 
+  text-transform: uppercase; 
+  letter-spacing: 0.05rem; 
+  font-weight: 700;
+  background: #e5e7eb;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+/* Desktop Split Adjustment */
+@media (min-width: 1024px) {
+  .split-view {
+    grid-template-columns: 24rem 1fr; 
+  }
+}
 /* TABLE STYLES (Standings) */
-table { width: 100%; border-collapse: collapse; }
-th { text-align: left; padding: 1rem; background: var(--header-bg); color: white; }
-td { padding: 1rem; border-bottom: 1px solid var(--border); color: var(--text); font-weight: 500;}
+table { 
+  width: 100%; 
+  border-collapse: separate; /* Allows for rounded corners if desired */
+  border-spacing: 0;
+  margin-top: 1rem;
+}
+
+/* Header Styling - Black with Red Bottom Border */
+th { 
+  text-align: left; 
+  padding: 1.2rem 1rem; 
+  background: #000000; 
+  color: #ffffff; 
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  border-bottom: 4px solid var(--primary); /* The TSN Red Accent */
+}
+
+/* Row Styling */
+td { 
+  padding: 1.2rem 1rem; 
+  border-bottom: 1px solid #e5e7eb; 
+  color: #111827; 
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+/* Zebra Striping: Makes every second row light gray for readability */
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* Hover Effect: Highlights the row when mouse moves over it */
+tbody tr:hover {
+  background-color: #f3f4f6; /* Slightly darker gray */
+  transform: scale(1.005); /* Micro-pop effect */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  cursor: default;
+  transition: all 0.1s ease-in-out;
+}
+
+/* Make the Team Name (First Column) BOLD */
+td:first-child {
+  font-weight: 800;
+  color: #000000;
+  font-size: 1.1rem;
+}
+
+/* Center align the Win/Loss columns */
+th:not(:first-child), 
+td:not(:first-child) {
+  text-align: center;
+  width: 100px; /* Fixed width for stats columns */
+  font-family: 'Inter', monospace; /* Monospace numbers look better for stats */
+  font-weight: 700;
+}
 
 /* --- RESPONSIVE DESKTOP ADJUSTMENTS --- */
 @media (min-width: 1024px) {

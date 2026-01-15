@@ -47,7 +47,7 @@ const NavBar = () => (
     <div className="nav-container">
       {/* LINK THE LOGO TO HOME */}
       <Link to="/" className="nav-logo">
-        <img src="public/endznlogoWhite (1).png" alt="League Logo" />
+        <img src="/endznlogoWhite.png" alt="League Logo" />
       </Link>
 
       <div className="nav-links">
